@@ -3,6 +3,7 @@ package com.afertettu.app.feature.settings
 import com.afertettu.app.core.system.BatteryExemption
 import com.afertettu.app.ui.theme.zone
 import com.afertettu.app.navigation.LocalReadableInset
+import com.afertettu.app.ui.component.ScreenBanner
 import com.afertettu.app.ui.component.LocalDockPadding
 import android.Manifest
 import android.content.Context
@@ -193,11 +194,7 @@ fun SettingsScreen(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = LocalReadableInset.current)
     ) {
-        Text(
-            "Settings",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 24.dp, bottom = 4.dp)
-        )
+        ScreenBanner(title = "Settings")
 
         Section("Appearance") {
             SettingRow(
@@ -214,7 +211,7 @@ fun SettingsScreen(
             )
             SwitchRow(
                 title = "Show counts",
-                summary = "Replies, reposts, likes and views under each post.",
+                summary = "Replies, reposts, quotes and likes under each post.",
                 checked = settings.showCounts,
                 onChange = viewModel::setShowCounts
             )
