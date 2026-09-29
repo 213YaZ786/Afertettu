@@ -1,5 +1,6 @@
 package com.afertettu.app.feature.feed
 
+import com.afertettu.app.ui.component.LoadingMark
 import com.afertettu.app.ui.component.plus
 import com.afertettu.app.ui.component.BoldButton
 import androidx.compose.foundation.clickable
@@ -25,7 +26,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
@@ -156,7 +156,7 @@ fun FeedScreen(
                 actions = {
                     IconButton(onClick = viewModel::refresh, enabled = !state.loading) {
                         if (state.loading) {
-                            CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+                            LoadingMark(size = 22.dp)
                         } else {
                             Icon(AfertettuIcons.Refresh, contentDescription = "Refresh")
                         }
@@ -222,7 +222,7 @@ fun FeedScreen(
                 if (feed == null && state.loading) {
                     item(key = "loading") {
                         Box(Modifier.fillMaxWidth().padding(48.dp), contentAlignment = Alignment.Center) {
-                            CircularProgressIndicator()
+                            LoadingMark(size = 40.dp)
                         }
                     }
                 }
@@ -247,10 +247,7 @@ fun FeedScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     when {
-                        loadingMore -> CircularProgressIndicator(
-                            modifier = Modifier.size(24.dp),
-                            strokeWidth = 2.dp
-                        )
+                        loadingMore -> LoadingMark(size = 28.dp)
                         canMore -> BoldButton(onClick = { viewModel.loadMore(manual = true) }) {
                             Text(if (pagingFailed) "Try again" else "Load older posts")
                         }
