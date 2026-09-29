@@ -1,5 +1,6 @@
 package com.afertettu.app.di
 
+import com.afertettu.app.core.link.RedirectResolver
 import com.afertettu.app.core.debug.LogExporter
 import com.afertettu.app.core.debug.RequestLog
 import com.afertettu.app.core.media.AutoMediaDownloader
@@ -42,6 +43,7 @@ val appModule = module {
     single(named("appScope")) { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
 
     single { RequestLog() }
+    single { RedirectResolver() }
     single { LogExporter(androidContext()) }
     single { HostThrottle() }
     single { HttpClientFactory.create() }
