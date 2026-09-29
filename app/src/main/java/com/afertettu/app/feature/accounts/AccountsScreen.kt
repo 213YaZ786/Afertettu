@@ -1,5 +1,6 @@
 package com.afertettu.app.feature.accounts
 
+import com.afertettu.app.ui.component.rememberHaptics
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.WindowInsets
@@ -97,6 +98,7 @@ fun AccountsScreen(
     var query by rememberSaveable { mutableStateOf("") }
     val focus = LocalFocusManager.current
     val context = LocalContext.current
+    val haptics = rememberHaptics()
 
     val people by viewModel.people.collectAsState()
 
@@ -139,6 +141,7 @@ fun AccountsScreen(
             .orEmpty()
         val text = PastedText.query(clip) { "bsky.app/" in it }
         if (text.isEmpty()) {
+            haptics.reject()
             Toast.makeText(context, "Nothing to paste. Copy a profile link or a handle first.", Toast.LENGTH_SHORT).show()
             return
         }
@@ -222,7 +225,7 @@ fun AccountsScreen(
                     CandidateCard(
                         handle = candidate,
                         onOpen = { open(candidate) },
-                        onFollow = { viewModel.follow(candidate) }
+                        onFollow = { haptics.done(); viewModel.follow(candidate) }
                     )
                 }
             } else if (trimmed.isNotEmpty() && candidate == null && visible.isEmpty() && people.isEmpty()) {
