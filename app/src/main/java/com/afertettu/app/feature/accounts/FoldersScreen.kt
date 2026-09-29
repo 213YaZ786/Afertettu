@@ -1,5 +1,6 @@
 package com.afertettu.app.feature.accounts
 
+import com.afertettu.app.ui.component.plus
 import com.afertettu.app.ui.component.BoldButton
 import com.afertettu.app.ui.theme.zone
 import androidx.compose.animation.AnimatedVisibility
@@ -143,13 +144,13 @@ fun FoldersScreen(
         }
     ) { padding ->
         LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(padding),
+            modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(
                 start = 16.dp + LocalReadableInset.current,
                 end = 16.dp + LocalReadableInset.current,
                 top = 8.dp,
                 bottom = 24.dp
-            ),
+            ).plus(padding),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(folders, key = { it }) { name ->

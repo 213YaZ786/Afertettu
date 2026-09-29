@@ -1,5 +1,8 @@
 package com.afertettu.app.feature.settings
 
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.windowInsetsTopHeight
 import com.afertettu.app.core.system.BatteryExemption
 import com.afertettu.app.ui.theme.zone
 import com.afertettu.app.navigation.LocalReadableInset
@@ -194,6 +197,8 @@ fun SettingsScreen(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = LocalReadableInset.current)
     ) {
+        // The screen draws under the status bar, its first row starts below it.
+        Spacer(Modifier.windowInsetsTopHeight(WindowInsets.statusBars))
         ScreenBanner(title = "Settings")
 
         Section("Appearance") {

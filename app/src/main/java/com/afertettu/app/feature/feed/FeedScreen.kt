@@ -1,5 +1,6 @@
 package com.afertettu.app.feature.feed
 
+import com.afertettu.app.ui.component.plus
 import com.afertettu.app.ui.component.BoldButton
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.background
@@ -180,8 +181,8 @@ fun FeedScreen(
                 start = LocalReadableInset.current,
                 end = LocalReadableInset.current,
                 bottom = LocalDockPadding.current
-            ),
-            modifier = Modifier.fillMaxSize().padding(padding)
+            ).plus(padding),
+            modifier = Modifier.fillMaxSize()
         ) {
             item(key = "header") {
                 ProfileHeader(

@@ -1,5 +1,6 @@
 package com.afertettu.app.feature.post
 
+import com.afertettu.app.ui.component.plus
 import com.afertettu.app.ui.component.BoldButton
 import com.afertettu.app.ui.theme.zone
 import com.afertettu.app.navigation.LocalReadableInset
@@ -117,9 +118,10 @@ fun PostDetailScreen(
             )
         }
     ) { padding ->
-        Box(Modifier.fillMaxSize().padding(padding)) {
+        Box(Modifier.fillMaxSize()) {
             when {
                 post != null -> ConversationView(
+                    contentPadding = padding,
                     post = post,
                     thread = state.thread,
                     onOpenProfile = onOpenProfile,
@@ -153,6 +155,7 @@ fun PostDetailScreen(
  */
 @Composable
 private fun ConversationView(
+    contentPadding: PaddingValues,
     post: Post,
     thread: ThreadState,
     onOpenProfile: (String) -> Unit,
@@ -198,7 +201,7 @@ private fun ConversationView(
         contentPadding = PaddingValues(
             start = LocalReadableInset.current,
             end = LocalReadableInset.current
-        )
+        ).plus(contentPadding)
     ) {
         val ancestors = conversation?.ancestors.orEmpty()
         if (ancestors.isNotEmpty()) {
